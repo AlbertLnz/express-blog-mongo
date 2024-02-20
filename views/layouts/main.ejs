@@ -10,6 +10,14 @@
   <script type='text/javascript' defer src='/js/script.js'></script>
 </head>
 <body>
-  <%- body %>
+  <div class="container">
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+      <%- body %>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+  </div>
 </body>
 </html>
