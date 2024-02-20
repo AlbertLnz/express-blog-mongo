@@ -3,6 +3,7 @@ import express from 'express'
 import expressEjsLayouts from 'express-ejs-layouts'
 import mainRouter from './server/routes/mainRouter.js'
 import connectDB from './server/config/db.js'
+import adminRouter from './server/routes/adminRouter.js' 
 
 dotenv.config()
 const app = express()
@@ -19,6 +20,7 @@ app.set('layout', './layouts/main')
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/', mainRouter)
+app.use('/admin', adminRouter)
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)
