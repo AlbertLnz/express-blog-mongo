@@ -3,7 +3,13 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/', (_req, res) => {
-  res.render('index')
+
+  const locals = {
+    title: "NodeJS Blog",
+    description: "Simple Blog created with NodeJS, ExpressJS & MongoDB" 
+  }
+
+  res.render('index', locals)
 })
 
 router.get('/about', (_req, res) => {
