@@ -1,0 +1,23 @@
+{
+  "name": "blog-mongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlbertLnz/express-blog-mongo.git"
+  },
+  "keywords": [
+    "Express",
+    "MongoDB"
+  ],
+  "author": "AlbertLnz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlbertLnz/express-blog-mongo/issues"
+  },
+  "homepage": "https://github.com/AlbertLnz/express-blog-mongo#readme"
+}
