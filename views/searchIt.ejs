@@ -1,0 +1,21 @@
+
+<section class='articles'>
+
+  <h2 class='articles__heading'>Show results</h2>
+
+  <ul class='articles__ul'>
+
+    <% data.forEach(post => { %>
+      
+      <li>
+        <a href="/posts/<%= post._id %>">
+          <span><%= post.title %></span>
+          <span class='article-list__date'><%= post.createdAt.toDateString() %></span>
+        </a>
+      </li>
+
+    <%  });  %>
+    
+  </ul>
+
+</section>

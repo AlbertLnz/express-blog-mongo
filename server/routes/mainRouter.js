@@ -60,4 +60,33 @@ router.get('/about', (_req, res) => {
   res.render('about')
 })
 
+router.post('/search', async (req, res) => {
+
+  const locals = {
+    title: "NodeJS Blog",
+    description: "Simple Blog created with NodeJS, ExpressJS & MongoDB" 
+  }
+
+  try {
+    
+    let searchTerm = req.body.searchTerm
+    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9_ ]/g, "");
+
+    const data = await Post.find({
+      $or: [ // search coincidences in 'title' or 'body'
+        { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }}, // 'i' === case_insensitive
+        { body: { $regex: new RegExp(searchNoSpecialChar, 'i') }} // 'i' === case_insensitive
+      ]
+    })
+
+    res.render('searchIt', { locals, data })
+
+  } catch (error) {
+    
+    console.log(error)
+
+  }
+
+})
+
 export default router 
