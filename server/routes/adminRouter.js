@@ -1,4 +1,6 @@
 import express from 'express'
+import User from '../models/User.js' 
+import bcrypt from 'bcrypt'
 
 const router = express.Router()
 
@@ -14,6 +16,34 @@ router.get('/', (_req, res) => {
   try {
     
     res.render('admin/login', { locals, layout: adminLayout }) // specify which layout to render! If not, 'main' layout applied (app.js)
+
+  } catch (error) {
+    
+    console.log(error)
+
+  }
+
+})
+
+router.post('/register', async (req, res) => {
+
+  try {
+    
+    const { username, password } = req.body
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    try {
+      
+      const user = await User.create({ username, password: hashedPassword })
+      res.json({ message: 'User created!', user }).status(201)
+      
+    } catch (error) {
+      
+      if(error.code === 1000) res.json({ message: 'User already in use' }).status(409)
+
+      res.json({ message: 'Internal Server Error' }).status(500)
+
+    }
 
   } catch (error) {
     
