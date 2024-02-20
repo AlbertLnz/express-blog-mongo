@@ -16,7 +16,7 @@ connectDB()
 app.use(express.static('public'))
 app.use(expressEjsLayouts)
 app.set('view engine', 'ejs')
-app.set('layout', './layouts/main')
+app.set('layout', './layouts/main') // per default, all my views render() this layout
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/', mainRouter)
