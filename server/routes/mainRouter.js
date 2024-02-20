@@ -3,7 +3,7 @@ import Post from '../models/Post.js'
 
 const router = express.Router()
 
-router.get('/', async (_req, res) => {
+router.get('/', async (req, res) => {
 
   const locals = {
     title: "NodeJS Blog",
@@ -11,9 +11,19 @@ router.get('/', async (_req, res) => {
   }
 
   try {
-    
-    const data = await Post.find()
-    res.render('index', { locals, data })
+
+    // · data for show all Posts:
+    // const data = await Post.find()
+    // res.render('index', { locals, data })
+
+    // · data with query to show per nº of pages:
+    let perPage = 6
+    let page = req.query.page || 1
+    const data = await Post.aggregate([{ $sort: { createdAt: -1 } }]).skip(perPage * page - perPage).limit(perPage).exec()
+    const count = await Post.countDocuments()
+    const nextPage = parseInt(page) + 1
+    const hasNextPage = nextPage <= Math.ceil(count / perPage)
+    res.render('index', { locals, data, current: page, nextPage: hasNextPage ? nextPage : null })
 
   } catch (error) {
     
