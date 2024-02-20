@@ -17,7 +17,7 @@ body {
   color: var(--black);
   font-size: var(--font-size-base);
   background-color: #FAF5EE;
-  background-image: url("/img/img-noise-361x370.png");
+  background-image: url("/imgs/background.png");
   margin: 0;
 }
 
