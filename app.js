@@ -7,7 +7,8 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3000
 
-// Templating Engine
+// Middlewares
+app.use(express.static('public'))
 app.use(expressEjsLayouts)
 app.set('view engine', 'ejs')
 app.set('layout', './layouts/main')
