@@ -193,4 +193,12 @@ router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
 
 })
 
+//Logout
+router.get('/logout', (_req, res) => {
+
+  // Clear the 'token' inside cookies
+  res.clearCookie('token')
+  res.redirect('/')
+})
+
 export default router 
