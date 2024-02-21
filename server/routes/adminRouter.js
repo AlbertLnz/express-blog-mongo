@@ -3,6 +3,7 @@ import User from '../models/User.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import { authMiddleware } from '../helpers/authMiddleware.js';
+import Post from '../models/Post.js';
 
 const router = express.Router()
 
@@ -79,9 +80,24 @@ router.post('/login', async (req, res) => {
 
 })
 
-router.get('/dashboard', authMiddleware, (req, res) => {
+router.get('/dashboard', authMiddleware, async (_req, res) => {
 
-  res.render('admin/dashboard', { layout: adminLayout })
+  const locals = {
+    title: "Admin Dashboard",
+    description: "Admin Dashboard - AlbertLnz" 
+  }
+
+  try {
+    
+    const data = await Post.find() // Find all Posts
+
+    res.render('admin/dashboard', { locals, data, layout: adminLayout })
+
+  } catch (error) {
+    
+    console.log(error)
+
+  }
 
 })
 

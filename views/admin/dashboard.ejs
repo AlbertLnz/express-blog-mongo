@@ -1,1 +1,27 @@
-<h1>Hello</h1>
+<div class="admin-title">
+  <h2>Posts</h2>
+  <a href="/admin/add-post" class='button'>+ Add new Post</a> <!-- Absolute route ("/admin/add-post") -->
+</div>
+
+<ul class='admin-posts'>
+  <% data.forEach(post => { %>
+    
+    <li>
+
+      <a href="/posts/<%= post._id %>"><%= post.title %> &nearr;</a> <!-- Absolute route ("/admin/post") -->
+
+      <div class="admin-post-controls">
+
+        <a href="/admin/edit-post/<%= post._id %>" class='btn'>Edit Post</a> <!-- Absolute route ("/admin/edit-post") === '/admin/edit-post'-->
+  
+        <form action="delete-post/<%= post._id %>?_method=DELETE" method='POST'> <!-- Relative route ("delete-post") === '/admin' + '/delete-post' -->
+        
+          <input type="submit" value='Delete' class='btn'>
+        
+        </form>
+  
+      </div>
+    </li>
+    
+  <% }); %>
+</ul>
