@@ -9,7 +9,7 @@ const router = express.Router()
 
 const adminLayout = '../views/layouts/admin'
 
-router.get('/', (_req, res) => {
+router.get('/', (req, res) => {
 
   const locals = {
     title: "Admin Panel",
@@ -18,6 +18,10 @@ router.get('/', (_req, res) => {
 
   try {
     
+    if(req.cookies.token) {
+      res.redirect('/admin/dashboard') // then this route has the middleware 'authMiddleware' that validates if token it's correct! To prevent insert 'token' cookie manually!!
+    }
+
     res.render('admin/login', { locals, layout: adminLayout }) // specify which layout to render! If not, 'main' layout applied (app.js)
 
   } catch (error) {
