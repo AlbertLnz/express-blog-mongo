@@ -101,4 +101,37 @@ router.get('/dashboard', authMiddleware, async (_req, res) => {
 
 })
 
+// CRUD Admin:
+
+router.get('/add-post', authMiddleware, (_req, res) => {
+
+  const locals = {
+    title: "Add new Post - Admin Panel",
+    description: "Blog - AlbertLnz" 
+  }
+
+  res.render('admin/add-post' , { locals, layout: adminLayout })
+})
+
+router.post('/add-post', authMiddleware, async (req, res) => {
+
+  try {
+    
+    const newPostData = new Post({
+      title: req.body.title,
+      body: req.body.body
+    })
+
+    await Post.create(newPostData)
+
+    res.redirect('/admin/dashboard')
+
+  } catch (error) {
+    
+    console.log(error)
+
+  }
+
+})
+
 export default router 
