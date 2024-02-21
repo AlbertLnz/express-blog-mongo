@@ -7,7 +7,8 @@ router.get('/', async (req, res) => {
 
   const locals = {
     title: "NodeJS Blog",
-    description: "Simple Blog created with NodeJS, ExpressJS & MongoDB" 
+    description: "Simple Blog created with NodeJS, ExpressJS & MongoDB",
+    currentRoute: '/'
   }
 
   try {
@@ -43,7 +44,8 @@ router.get('/posts/:id', async (req, res) => {
 
     const locals = {
       title: data.title,
-      description: "Simple Blog created with NodeJS, ExpressJS & MongoDB" 
+      description: "Simple Blog created with NodeJS, ExpressJS & MongoDB",
+      currentRoute: `/posts/${slug}`
     }
 
     res.render('post', { locals, data })
@@ -57,7 +59,14 @@ router.get('/posts/:id', async (req, res) => {
 })
 
 router.get('/about', (_req, res) => {
-  res.render('about')
+  
+  const locals = {
+    title: "About - NodeJS Blog",
+    description: "Simple Blog created with NodeJS, ExpressJS & MongoDB",
+    currentRoute: '/about'
+  }
+  
+  res.render('about', locals)
 })
 
 router.post('/search', async (req, res) => {

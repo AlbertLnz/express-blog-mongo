@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import methodOverride from 'method-override';
+import isActiveRoute from './server/helpers/isActiveRoute.js'
 
 dotenv.config()
 const app = express()
@@ -34,6 +35,10 @@ app.use(session({
 }))
 app.use(methodOverride('_method'))
 
+// Locals
+app.locals.isActiveRoute = isActiveRoute
+
+// Routers
 app.use('/', mainRouter)
 app.use('/admin', adminRouter)
 
