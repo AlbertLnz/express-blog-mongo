@@ -134,4 +134,47 @@ router.post('/add-post', authMiddleware, async (req, res) => {
 
 })
 
+router.get('/edit-post/:id', authMiddleware, async (req, res) => {
+
+  const locals = {
+    title: "Edit Post - Admin Panel",
+    description: "Blog - AlbertLnz" 
+  }
+
+  try {
+    
+    const postId = req.params.id
+    const searchPost = await Post.findById(postId) // <------------- WAY 1
+    // const searchPost = await Post.findOne({ _id: postId }) // <-- WAY 2
+    
+    res.render('admin/edit-post' , { locals, searchPost, layout: adminLayout })
+
+  } catch (error) {
+    
+    res.json({ message: 'Error 404 - Post Not Found' }).status(404)
+
+  }
+
+})
+
+router.put('/edit-post/:id', authMiddleware, async (req, res) => {
+
+  try {
+
+    await Post.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      body: req.body.body,
+      updatedAt: Date.now()
+    })
+
+    res.redirect(`/admin/edit-post/${req.params.id}`)
+
+  } catch (error) {
+    
+    res.json({ message: 'Error 500 - I cannot updated the Post' }).status(500)
+
+  }
+
+})
+
 export default router 

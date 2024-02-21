@@ -7,6 +7,7 @@ import adminRouter from './server/routes/adminRouter.js'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import methodOverride from 'method-override';
 
 dotenv.config()
 const app = express()
@@ -31,6 +32,7 @@ app.use(session({
     mongoUrl: process.env.MONGODB_URI
   })
 }))
+app.use(methodOverride('_method'))
 
 app.use('/', mainRouter)
 app.use('/admin', adminRouter)
