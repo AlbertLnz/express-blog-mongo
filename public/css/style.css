@@ -52,8 +52,13 @@ textarea {
 }
 
 .btn-delete {
-  padding: 10px 16px;
   background-color: var(--red);
+  border: none;
+  color: white; 
+  padding: 10px 16px;
+  text-decoration: none;
+  margin: 4px 2px; 
+  cursor: pointer;
 }
 
 
@@ -293,6 +298,7 @@ img {
 .admin-posts li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 0;
 }
 

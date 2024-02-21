@@ -177,4 +177,20 @@ router.put('/edit-post/:id', authMiddleware, async (req, res) => {
 
 })
 
+router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
+
+  try {
+    
+    await Post.deleteOne({ _id: req.params.id })
+
+    res.redirect('/admin/dashboard')
+
+  } catch (error) {
+    
+    res.json({ message: 'Unprocessable Entity' }).status(422)
+
+  }
+
+})
+
 export default router 
