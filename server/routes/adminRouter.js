@@ -1,6 +1,7 @@
 import express from 'express'
 import User from '../models/User.js' 
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken';
 
 const router = express.Router()
 
@@ -53,6 +54,28 @@ router.post('/register', async (req, res) => {
 
 })
 
+router.post('/login', async (req, res) => {
 
+  const jwtSecret = process.env.JWT_SECRET
+  const { username, password } = req.body
+
+  const user = await User.findOne({ username })
+
+  if(!user) {
+    return res.json({ message: 'Invalid credentials' }).status(401)
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password)
+
+  if(!isPasswordValid) {
+    return res.json({ message: 'Invalid credentials' }).status(401)
+  }
+
+  const token = jwt.sign({ userId: user._id }, jwtSecret )
+  res.cookie('token', token, { httpOnly: true })
+
+  res.redirect('/admin/dashboard')
+
+})
 
 export default router 
