@@ -2,6 +2,7 @@ import express from 'express'
 import User from '../models/User.js' 
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
+import { authMiddleware } from '../helpers/authMiddleware.js';
 
 const router = express.Router()
 
@@ -75,6 +76,12 @@ router.post('/login', async (req, res) => {
   res.cookie('token', token, { httpOnly: true })
 
   res.redirect('/admin/dashboard')
+
+})
+
+router.get('/dashboard', authMiddleware, (req, res) => {
+
+  res.render('admin/dashboard', { layout: adminLayout })
 
 })
 
